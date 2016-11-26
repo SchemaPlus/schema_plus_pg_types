@@ -8,8 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = SchemaPlus::PgTypes::VERSION
   gem.authors       = ["Boaz Yaniv"]
   gem.email         = ["boazyan@gmail.com"]
-  gem.summary       = %q{TODO: Write a short summary. Required.}
-  gem.description   = %q{TODO: Write a longer description. Optional.}
+  gem.summary       = %q{Adds supports for PostgreSQL types that were left out by Rails}
   gem.homepage      = "https://github.com/SchemaPlus/schema_plus_pg_types"
   gem.license       = "MIT"
 
@@ -18,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "activerecord", "~> 4.2"
+  gem.add_dependency "activerecord", "~> 5.0"
   gem.add_dependency "schema_plus_core", "~> 2.0", ">= 2.0.1"
 
   gem.add_development_dependency "bundler", "~> 1.7"

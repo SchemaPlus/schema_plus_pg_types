@@ -1,3 +1,5 @@
-module SchemaPlus::PgTypes
-  VERSION = "0.1.0"
+module SchemaPlus
+  module PgTypes
+    VERSION = '0.1.0'
+  end
 end
