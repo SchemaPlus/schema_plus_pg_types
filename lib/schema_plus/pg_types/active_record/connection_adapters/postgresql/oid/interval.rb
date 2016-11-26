@@ -21,6 +21,11 @@ module ActiveRecord
             end
           end
 
+          # Dump the ISO8601 date inside the schema
+          def type_cast_for_schema(value)
+            "\"#{value.iso8601}\""
+          end
+
           def serialize(value)
             case value
               when ::ActiveSupport::Duration

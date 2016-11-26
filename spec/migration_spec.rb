@@ -1,6 +1,11 @@
 require 'spec_helper'
+require 'active_record/schema_dumper'
 
 class Item < ActiveRecord::Base
+end
+
+class DefaultItem < ActiveRecord::Base
+
 end
 
 describe 'Migration' do
@@ -58,6 +63,19 @@ describe 'Migration' do
       expect(durations).to all(be_an(ActiveSupport::Duration))
       expect(durations).to eq(TEST_DURATIONS)
     end
+
+    it 'should support default values' do
+      DefaultItem.create
+      item_with_default_value = DefaultItem.first
+      expect(item_with_default_value.duration).to be_an(ActiveSupport::Duration)
+      expect(item_with_default_value.duration).to eq(2.years + 5.minutes)
+    end
+
+    it 'should properly dump the schema' do
+      stream = StringIO.new
+      ActiveRecord::SchemaDumper.dump(connection, stream)
+    end
+
   end
 
   protected
@@ -67,8 +85,12 @@ describe 'Migration' do
 
     schema.define do
 
-      create_table :items, :force => true do |t|
+      create_table :items, force: true do |t|
         t.interval :duration
+      end
+
+      create_table :default_items, force: true do |t|
+        t.interval :duration, default: 2.years + 5.minutes
       end
     end
   end
