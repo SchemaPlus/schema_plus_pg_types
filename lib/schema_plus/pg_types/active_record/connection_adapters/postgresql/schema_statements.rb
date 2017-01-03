@@ -5,15 +5,18 @@ module SchemaPlus::PgTypes
     module ConnectionAdapters
       module PostgreSQL
         module SchemaStatements
-          def type_to_sql(type, limit = nil, precision = nil, scale = nil)
+          def type_to_sql(type, limit = nil, precision = nil, scale = nil, array = nil)
             case type.to_s
               when 'interval'
-                return super(type, limit, precision, scale) unless precision
-
-                case precision
-                  when 0..6; "interval(#{precision})"
-                  else raise(ActiveRecordError, "No interval type has precision of #{precision}. The allowed range of precision is from 0 to 6")
+                sql = 'interval'
+                if precision
+                  sql << case precision
+                    when 0..6; "(#{precision})"
+                    else raise(::ActiveRecord::ActiveRecordError, "No interval type has precision of #{precision}. The allowed range of precision is from 0 to 6")
+                  end
                 end
+                sql << '[]' if array
+                sql
               else
                 super(type, limit, precision, scale)
             end

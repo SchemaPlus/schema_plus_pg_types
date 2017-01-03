@@ -7,16 +7,13 @@ module SchemaPlus::PgTypes
             args.each { |name| column(name, :interval, options) }
           end
         end
+
         module Table
-          def interval(*args, **options)
-            args.each { |name| column(name, :interval, options) }
-          end
+          include ColumnMethods
         end
 
         module TableDefinition
-          def interval(*args, **options)
-            args.each { |name| column(name, :interval, options) }
-          end
+          include ColumnMethods
         end
       end
     end
