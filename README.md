@@ -65,6 +65,7 @@ SchemaPlus::PgTypes is part of the [SchemaPlus](https://github.com/SchemaPlus/) 
 
 ## History
 
+* 0.1.1 - Improve test coverage (no change to production code)
 * 0.1.0 - Initial release
 
 ## Development & Testing
