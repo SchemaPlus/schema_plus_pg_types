@@ -34,6 +34,13 @@ describe 'Conversion' do
       5.years + 7.months + 10.days + 6.hours + 7.minutes + 8.seconds
     ]
 
+    it 'should convert numeric values to proper durations (round trip)' do
+      [0, 3600].each{|numeric_duration| Item.create(duration: numeric_duration)}
+      durations = Item.pluck(:duration)
+      expect(durations).to all(be_an(ActiveSupport::Duration))
+      expect(durations).to eq([0.seconds, 1.hour])
+    end
+
     it 'should convert data from ActiveSupport::Duration (round trip)' do
       TEST_DURATIONS.each{|duration| Item.create(duration: duration)}
       durations = Item.pluck(:duration)
